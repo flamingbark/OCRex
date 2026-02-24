@@ -112,17 +112,11 @@ export function registerCronAutonomyCommand(cron: Command) {
             );
           }
 
-          if (existing.length > 0 && opts.replace) {
-            for (const job of existing) {
-              await callGatewayFromCli("cron.remove", opts, { id: job.id });
-            }
-          }
-
           const agentIdRaw = typeof opts.agent === "string" ? opts.agent.trim() : "main";
           const agentId = agentIdRaw ? sanitizeAgentId(agentIdRaw) : "main";
           const prompt = buildAutonomyPrompt({ objective: objectiveRaw, testCommand });
 
-          const params = {
+          const desiredSpec = {
             name: nameRaw,
             description:
               typeof opts.description === "string" && opts.description.trim()
@@ -154,9 +148,25 @@ export function registerCronAutonomyCommand(cron: Command) {
             },
           };
 
-          const addRes = await callGatewayFromCli("cron.add", opts, params);
+          // Prefer in-place update when exactly one matching job exists to preserve run history.
+          // If multiple stale duplicates exist, remove and recreate to converge to one canonical job.
+          const response =
+            existing.length === 1 && opts.replace
+              ? await callGatewayFromCli("cron.update", opts, {
+                  id: existing[0].id,
+                  patch: desiredSpec,
+                })
+              : await (async () => {
+                  if (existing.length > 0 && opts.replace) {
+                    for (const job of existing) {
+                      await callGatewayFromCli("cron.remove", opts, { id: job.id });
+                    }
+                  }
+                  return callGatewayFromCli("cron.add", opts, desiredSpec);
+                })();
+
           if (opts.json) {
-            defaultRuntime.log(JSON.stringify(addRes, null, 2));
+            defaultRuntime.log(JSON.stringify(response, null, 2));
           } else {
             defaultRuntime.log(
               `Autonomy loop ready: ${nameRaw} (${everyRaw}, agent=${agentId}, session=isolated)`,

@@ -207,7 +207,7 @@ describe("cron cli", () => {
     expect(params?.payload?.message).toContain("Run validation: pnpm test:fast.");
   });
 
-  it("replaces existing autonomy job with same name", async () => {
+  it("replaces existing autonomy job in-place when one matching job exists", async () => {
     resetGatewayMock();
     callGatewayFromCli.mockImplementation(
       async (method: string, _opts: unknown, params?: unknown) => {
@@ -231,8 +231,45 @@ describe("cron cli", () => {
     const program = buildProgram();
     await program.parseAsync(["cron", "autonomy"], { from: "user" });
 
+    const updateCall = callGatewayFromCli.mock.calls.find((call) => call[0] === "cron.update");
+    expect(updateCall?.[2]).toMatchObject({
+      id: "job-old-1",
+      patch: { sessionTarget: "isolated" },
+    });
+    const addCall = callGatewayFromCli.mock.calls.find((call) => call[0] === "cron.add");
+    expect(addCall).toBeUndefined();
     const removeCall = callGatewayFromCli.mock.calls.find((call) => call[0] === "cron.remove");
-    expect(removeCall?.[2]).toEqual({ id: "job-old-1" });
+    expect(removeCall).toBeUndefined();
+  });
+
+  it("recreates autonomy job when duplicate matching jobs exist", async () => {
+    resetGatewayMock();
+    callGatewayFromCli.mockImplementation(
+      async (method: string, _opts: unknown, params?: unknown) => {
+        if (method === "cron.status") {
+          return { enabled: true };
+        }
+        if (method === "cron.list") {
+          return {
+            jobs: [
+              { id: "job-old-1", name: "openclaw-self-improvement-loop" },
+              { id: "job-old-2", name: "openclaw-self-improvement-loop" },
+            ],
+          };
+        }
+        return { ok: true, params };
+      },
+    );
+
+    const program = buildProgram();
+    await program.parseAsync(["cron", "autonomy"], { from: "user" });
+
+    const removeCalls = callGatewayFromCli.mock.calls.filter((call) => call[0] === "cron.remove");
+    expect(removeCalls).toHaveLength(2);
+    expect(removeCalls.map((call) => (call[2] as { id: string }).id).toSorted()).toEqual([
+      "job-old-1",
+      "job-old-2",
+    ]);
     const addCall = callGatewayFromCli.mock.calls.find((call) => call[0] === "cron.add");
     expect(addCall).toBeTruthy();
   });
