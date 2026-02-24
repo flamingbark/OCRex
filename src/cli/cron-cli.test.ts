@@ -205,6 +205,8 @@ describe("cron cli", () => {
     expect(params?.delivery?.mode).toBe("announce");
     expect(params?.payload?.message).toContain("Run this loop each cycle");
     expect(params?.payload?.message).toContain("Run validation: pnpm test:fast.");
+    expect(params?.payload?.message).toContain("Open or update a GitHub PR");
+    expect(params?.payload?.message).toContain("merge the PR (prefer auto-merge)");
   });
 
   it("replaces existing autonomy job in-place when one matching job exists", async () => {

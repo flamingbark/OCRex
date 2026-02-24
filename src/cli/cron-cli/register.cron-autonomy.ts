@@ -39,12 +39,14 @@ function buildAutonomyPrompt(params: { objective: string; testCommand: string })
     "3) Implement minimal, reversible changes.",
     `4) Run validation: ${params.testCommand}.`,
     "5) If validation fails, iterate until green or revert the unsafe change.",
-    "6) Write a concise summary with risks and follow-ups.",
+    "6) Open or update a GitHub PR with a concise summary, risks, and test results.",
+    "7) If all required checks pass and policy allows, merge the PR (prefer auto-merge).",
     "",
     "Safety rules:",
     "- Minimize permission requests and keep commands non-interactive.",
     "- Never use destructive git commands (reset --hard, checkout --, force push).",
     "- Prefer small scoped edits and maintain backward compatibility.",
+    "- Respect branch protection and required checks; never bypass repository policy.",
   ].join("\n");
 }
 
