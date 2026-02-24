@@ -4,6 +4,6 @@
     "description": "Investigate and fix Brave Search API authentication issue.",
     "branch": "fix-brave-authentication",
     "status": "done",
-    "note": "Spawned sub-agent to fix authentication issue."
+    "note": "PR updated and checks verified; task completed."
   }
 ]
