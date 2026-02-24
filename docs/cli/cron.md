@@ -1,11 +1,3 @@
----
-summary: "CLI reference for `openclaw cron` (schedule and run background jobs)"
-read_when:
-  - You want scheduled jobs and wakeups
-  - You’re debugging cron execution and logs
-title: "cron"
----
-
 # `openclaw cron`
 
 Manage cron jobs for the Gateway scheduler.
@@ -34,7 +26,7 @@ openclaw cron autonomy
 This creates an isolated agent-turn cron job that runs a built-in loop:
 inspect → plan → edit → validate → summarize.
 Autonomy jobs keep output internal by default; add `--announce` to deliver summaries.
-Default cadence is `15m`, with guidance to avoid full-suite test runs.
+Default cadence is `15m`, with guidance to avoid full-suite test runs unless deemed necessary.
 
 Customize objective, cadence, and validation command:
 
