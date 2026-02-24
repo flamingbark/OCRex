@@ -638,3 +638,37 @@ export type LogEntry = {
   message?: string | null;
   meta?: Record<string, unknown> | null;
 };
+
+export type SwarmTaskEntry = {
+  id: string;
+  description?: string;
+  branch?: string;
+  agent?: string;
+  status?: "running" | "needs_attention" | "done" | "failed" | "unknown";
+  startedAt?: string;
+  heartbeatAt?: string;
+  completedAt?: string;
+  note?: string;
+  nextAction?: string | null;
+  lastError?: string | null;
+  pr?: {
+    number?: number | null;
+    state?: string | null;
+    url?: string | null;
+  };
+};
+
+export type SwarmStatusResult = {
+  enabled: boolean;
+  registryPath: string;
+  updatedAt: string | null;
+  tasks: SwarmTaskEntry[];
+  counts: {
+    total: number;
+    running: number;
+    needsAttention: number;
+    done: number;
+    failed: number;
+  };
+  error?: string;
+};

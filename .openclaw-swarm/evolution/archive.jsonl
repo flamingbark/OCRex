@@ -1,0 +1,102 @@
+{
+  "ts": "2026-02-24T11:08:26+00:00",
+  "taskId": "evo-1",
+  "status": "done",
+  "description": "evo smoke done",
+  "branch": "main",
+  "score": 7,
+  "attempts": 1,
+  "signals": {
+    "ciPassed": true,
+    "codexReviewPassed": true,
+    "openrouterReviewPassed": true,
+    "merged": true
+  },
+  "failure": null,
+  "nextAction": null
+}
+{
+  "ts": "2026-02-24T11:08:26+00:00",
+  "taskId": "62f795c2-cac4-47e7-a0ec-77661d581f95",
+  "status": "failed",
+  "description": "Validation tests for PR #2",
+  "branch": "main",
+  "score": 0,
+  "attempts": 0,
+  "signals": {
+    "ciPassed": false,
+    "codexReviewPassed": false,
+    "openrouterReviewPassed": false,
+    "merged": false
+  },
+  "failure": null,
+  "nextAction": null
+}
+{
+  "ts": "2026-02-24T11:12:54+00:00",
+  "taskId": "62f795c2-cac4-47e7-a0ec-77661d581f95",
+  "status": "failed",
+  "description": "Brave API key configuration is missing. Verify settings to proceed with task. ",
+  "branch": "main",
+  "score": 0,
+  "attempts": 0,
+  "signals": {
+    "ciPassed": false,
+    "codexReviewPassed": false,
+    "openrouterReviewPassed": false,
+    "merged": false
+  },
+  "failure": null,
+  "nextAction": null
+}
+{
+  "ts": "2026-02-24T11:15:36+00:00",
+  "taskId": "mem0-evo-1",
+  "status": "done",
+  "description": "mem0 archive smoke",
+  "branch": "main",
+  "score": 8,
+  "attempts": 0,
+  "signals": {
+    "ciPassed": true,
+    "codexReviewPassed": true,
+    "openrouterReviewPassed": true,
+    "merged": true
+  },
+  "failure": null,
+  "nextAction": null
+}
+{
+  "ts": "2026-02-24T11:38:14+00:00",
+  "taskId": "smoke-autonomy-1771933003",
+  "status": "done",
+  "description": "Smoke test autonomous worker spawn",
+  "branch": "main",
+  "score": 2,
+  "attempts": 0,
+  "signals": {
+    "ciPassed": false,
+    "codexReviewPassed": false,
+    "openrouterReviewPassed": false,
+    "merged": false
+  },
+  "failure": null,
+  "nextAction": "Worker run completed successfully."
+}
+{
+  "ts": "2026-02-24T11:47:27+00:00",
+  "taskId": "setup-brave-key",
+  "status": "done",
+  "description": "Setup Brave API key for Brave Search functionality.",
+  "branch": "main",
+  "score": 2,
+  "attempts": 0,
+  "signals": {
+    "ciPassed": false,
+    "codexReviewPassed": false,
+    "openrouterReviewPassed": false,
+    "merged": false
+  },
+  "failure": null,
+  "nextAction": null
+}
