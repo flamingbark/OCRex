@@ -34,7 +34,7 @@ openclaw cron autonomy
 This creates an isolated agent-turn cron job that runs a built-in loop:
 inspect → plan → edit → validate → summarize.
 Autonomy jobs keep output internal by default; add `--announce` to deliver summaries.
-Default cadence is `15m`, with cron-safe guidance to avoid full-suite test runs.
+Default cadence is `15m`, with guidance to avoid full-suite test runs.
 
 Customize objective, cadence, and validation command:
 
@@ -49,6 +49,44 @@ openclaw cron autonomy \
 Use `--no-replace` to fail if a job with the same name already exists.
 
 ## Common edits
+
+Update delivery settings without changing the message:
+
+```bash
+openclaw cron edit <job-id> --announce --channel telegram --to "123456789"
+```
+
+Disable delivery for an isolated job:
+
+```bash
+openclaw cron edit <job-id> --no-deliver
+```
+
+Announce to a specific channel:
+
+```bash
+openclaw cron edit <job-id> --announce --channel slack --to "channel:C1234567890"
+```
+
+### Additional Examples
+
+Modify an existing job to change its delivery method:
+
+```bash
+openclaw cron edit <job-id> --announce --channel email --to "user@example.com"
+```
+
+Change a job to not announce its output:
+
+```bash
+openclaw cron edit <job-id> --no-deliver
+```
+
+Adjust a job to send its output to a different Slack channel:
+
+```bash
+openclaw cron edit <job-id> --announce --channel slack --to "channel:C0987654321"
+```
 
 Update delivery settings without changing the message:
 
