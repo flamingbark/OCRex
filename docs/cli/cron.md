@@ -43,6 +43,7 @@ openclaw cron autonomy \
   --test-command "pnpm test:fast"
 ```
 
+`--replace` is on by default: one matching job is updated in place (history preserved); duplicates are reconciled to one job.
 Use `--no-replace` to fail if a job with the same name already exists.
 
 ## Common edits
