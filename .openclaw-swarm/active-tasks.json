@@ -1,1 +1,41 @@
-[Updated content based on latest checks for tasks]
+{
+  "tasks": [
+    {
+      "id": "fix-flaky-test",
+      "status": "failed",
+      "description": "User input required for automated actions due to timeout failures in sub-agent communication.",
+      "note": "Unable to receive repository URL, closing the task for now.",
+      "branch": "main",
+      "agent": "codex",
+      "startedAt": "2026-02-24T21:02:47+00:00",
+      "heartbeatAt": "2026-02-24T21:02:47+00:00",
+      "completedAt": "2026-02-24T21:12:47+00:00",
+      "runId": null,
+      "sessionKey": null,
+      "notifyOnComplete": true,
+      "attempts": 0,
+      "maxAttempts": 3,
+      "checks": {
+        "prCreated": false,
+        "ciPassed": false,
+        "codexReviewPassed": null,
+        "openrouterReviewPassed": null,
+        "claudeReviewPassed": null,
+        "geminiReviewPassed": null
+      },
+      "lastError": null,
+      "nextAction": null,
+      "notifiedAt": null,
+      "evolutionLoggedAt": "2026-02-24T21:02:47+00:00",
+      "evolutionScore": 0,
+      "pr": {
+        "number": null,
+        "state": null,
+        "url": null
+      },
+      "repo": null,
+      "worktree": null
+    }
+  ],
+  "updatedAt": "2026-02-24T21:12:47+00:00"
+}

@@ -50,7 +50,25 @@ function buildAutonomyPrompt(params: { objective: string; testCommand: string })
   ].join("\n");
 }
 
-export function registerCronAutonomyCommand(cron: Command) {
+export /**
+ * Registers a cron job for autonomous self-improvement.
+ *
+ * @param {Command} cron - The commander instance for registering the command.
+ * @returns {void}
+ */
+/**
+ * Registers a cron job for autonomous self-improvement.
+ *
+ * @param {Command} cron - The commander instance for registering the command.
+ * @returns {void}
+ */
+/**
+ * Registers a cron job for autonomous self-improvement.
+ *
+ * @param {Command} cron - The commander instance for registering the command.
+ * @returns {void}
+ */
+function registerCronAutonomyCommand(cron: Command) {
   addGatewayClientOptions(
     cron
       .command("autonomy")
