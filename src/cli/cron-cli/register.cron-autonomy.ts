@@ -16,6 +16,7 @@ type AutonomyCliOpts = GatewayRpcOpts & {
   agent?: string;
   model?: string;
   thinking?: string;
+  announce?: boolean;
   channel?: string;
   to?: string;
   bestEffortDeliver?: boolean;
@@ -25,7 +26,7 @@ type AutonomyCliOpts = GatewayRpcOpts & {
 };
 
 const DEFAULT_AUTONOMY_JOB_NAME = "openclaw-self-improvement-loop";
-const DEFAULT_AUTONOMY_EVERY = "1h";
+const DEFAULT_AUTONOMY_EVERY = "15m";
 const DEFAULT_AUTONOMY_TEST_CMD = "pnpm test:fast";
 
 function buildAutonomyPrompt(params: { objective: string; testCommand: string }): string {
@@ -37,10 +38,14 @@ function buildAutonomyPrompt(params: { objective: string; testCommand: string })
     "1) Inspect the repository state and recent issues/failures.",
     "2) Pick one high-impact, low-risk improvement and write a short plan.",
     "3) Implement minimal, reversible changes.",
-    `4) Run validation: ${params.testCommand}.`,
-    "5) If validation fails, iterate until green or revert the unsafe change.",
+    "4) Run focused validation only for changed scope (single test file/package command).",
+    `5) If broad validation is needed, run ${params.testCommand} only outside cron.`,
     "6) Open or update a GitHub PR with a concise summary, risks, and test results.",
     "7) If all required checks pass and policy allows, merge the PR (prefer auto-merge).",
+    "",
+    "Runtime constraints:",
+    "- Keep each run under 3 minutes.",
+    "- Never run full-suite commands from cron (e.g. pnpm test, pnpm test:fast).",
     "",
     "Safety rules:",
     "- Minimize permission requests and keep commands non-interactive.",
@@ -71,6 +76,7 @@ export function registerCronAutonomyCommand(cron: Command) {
       .option("--agent <id>", "Agent id for the autonomy job", "main")
       .option("--model <model>", "Model override (provider/model or alias)")
       .option("--thinking <level>", "Thinking level (off|minimal|low|medium|high)", "low")
+      .option("--announce", "Announce summary to a chat (otherwise keep output internal)", false)
       .option("--channel <channel>", "Delivery channel for summaries", "last")
       .option("--to <dest>", "Delivery destination for summaries")
       .option("--best-effort-deliver", "Do not fail job when delivery fails", false)
@@ -140,13 +146,16 @@ export function registerCronAutonomyCommand(cron: Command) {
                   : undefined,
             },
             delivery: {
-              mode: "announce" as const,
+              mode: opts.announce ? ("announce" as const) : ("none" as const),
               channel:
-                typeof opts.channel === "string" && opts.channel.trim()
+                opts.announce && typeof opts.channel === "string" && opts.channel.trim()
                   ? opts.channel.trim()
-                  : "last",
-              to: typeof opts.to === "string" && opts.to.trim() ? opts.to.trim() : undefined,
-              bestEffort: opts.bestEffortDeliver ? true : undefined,
+                  : undefined,
+              to:
+                opts.announce && typeof opts.to === "string" && opts.to.trim()
+                  ? opts.to.trim()
+                  : undefined,
+              bestEffort: opts.announce && opts.bestEffortDeliver ? true : undefined,
             },
           };
 

@@ -33,6 +33,8 @@ openclaw cron autonomy
 
 This creates an isolated agent-turn cron job that runs a built-in loop:
 inspect → plan → edit → validate → summarize.
+Autonomy jobs keep output internal by default; add `--announce` to deliver summaries.
+Default cadence is `15m`, with cron-safe guidance to avoid full-suite test runs.
 
 Customize objective, cadence, and validation command:
 

@@ -202,11 +202,21 @@ describe("cron cli", () => {
     expect(params?.wakeMode).toBe("next-heartbeat");
     expect(params?.payload?.kind).toBe("agentTurn");
     expect(params?.payload?.thinking).toBe("low");
-    expect(params?.delivery?.mode).toBe("announce");
+    expect(params?.delivery?.mode).toBe("none");
     expect(params?.payload?.message).toContain("Run this loop each cycle");
-    expect(params?.payload?.message).toContain("Run validation: pnpm test:fast.");
+    expect(params?.payload?.message).toContain("Run focused validation only for changed scope");
+    expect(params?.payload?.message).toContain(
+      "Never run full-suite commands from cron (e.g. pnpm test, pnpm test:fast).",
+    );
     expect(params?.payload?.message).toContain("Open or update a GitHub PR");
     expect(params?.payload?.message).toContain("merge the PR (prefer auto-merge)");
+  });
+
+  it("supports announced autonomy summaries when requested", async () => {
+    await runCronCommand(["cron", "autonomy", "--announce"]);
+
+    const params = getGatewayCallParams<CronAddParams>("cron.add");
+    expect(params?.delivery?.mode).toBe("announce");
   });
 
   it("replaces existing autonomy job in-place when one matching job exists", async () => {
