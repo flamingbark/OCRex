@@ -5,6 +5,7 @@ import { loadModelCatalog } from "../agents/model-catalog.js";
 import {
   buildAllowedModelSet,
   buildModelAliasIndex,
+  isOpenRouterFreeModel,
   modelKey,
   normalizeProviderId,
   resolveConfiguredModelRef,
@@ -117,6 +118,9 @@ function addModelSelectOption(params: {
 }) {
   const key = modelKey(params.entry.provider, params.entry.id);
   if (params.seen.has(key)) {
+    return;
+  }
+  if (!isOpenRouterFreeModel(params.entry.provider, params.entry.id)) {
     return;
   }
   // Skip internal router models that can't be directly called via API.

@@ -57,6 +57,14 @@ export function normalizeProviderId(provider: string): string {
   return normalized;
 }
 
+export function isOpenRouterFreeModel(provider: string, model: string): boolean {
+  if (normalizeProviderId(provider) !== "openrouter") {
+    return true;
+  }
+  const normalizedModel = model.trim().toLowerCase();
+  return normalizedModel.endsWith(":free");
+}
+
 export function findNormalizedProviderValue<T>(
   entries: Record<string, T> | undefined,
   provider: string,

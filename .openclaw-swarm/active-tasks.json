@@ -1,4 +1,8 @@
-{
-  "updatedAt": "2026-02-24T19:22:42+00:00",
-  "tasks": []
-}
+[
+  {
+    "id": "investigate-environmental-issues",
+    "description": "Investigating the environmental issues related to model selection tests.",
+    "status": "done",
+    "note": "Task completed, but PR not created due to errors. Need to address and create PR."
+  }
+]

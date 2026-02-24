@@ -6,7 +6,7 @@ import { DEFAULT_CONTEXT_TOKENS } from "../defaults.js";
 import { buildModelAliasLines } from "../model-alias-lines.js";
 import { normalizeModelCompat } from "../model-compat.js";
 import { resolveForwardCompatModel } from "../model-forward-compat.js";
-import { normalizeProviderId } from "../model-selection.js";
+import { isOpenRouterFreeModel, normalizeProviderId } from "../model-selection.js";
 import {
   discoverAuthStorage,
   discoverModels,
@@ -58,11 +58,19 @@ export function resolveModel(
   const authStorage = discoverAuthStorage(resolvedAgentDir);
   const modelRegistry = discoverModels(authStorage, resolvedAgentDir);
   const model = modelRegistry.find(provider, modelId) as Model<Api> | null;
+  const normalizedProvider = normalizeProviderId(provider);
+
+  if (!isOpenRouterFreeModel(normalizedProvider, modelId)) {
+    return {
+      error: `OpenRouter model must be free (:free): ${provider}/${modelId}`,
+      authStorage,
+      modelRegistry,
+    };
+  }
 
   if (!model) {
     const providers = cfg?.models?.providers ?? {};
     const inlineModels = buildInlineProviderModels(providers);
-    const normalizedProvider = normalizeProviderId(provider);
     const inlineMatch = inlineModels.find(
       (entry) => normalizeProviderId(entry.provider) === normalizedProvider && entry.id === modelId,
     );

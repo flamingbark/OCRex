@@ -2,6 +2,7 @@ import { listAgentIds } from "../../agents/agent-scope.js";
 import { DEFAULT_MODEL, DEFAULT_PROVIDER } from "../../agents/defaults.js";
 import {
   buildModelAliasIndex,
+  isOpenRouterFreeModel,
   modelKey,
   parseModelRef,
   resolveModelRefFromString,
@@ -94,6 +95,11 @@ export function resolveModelTarget(params: { raw: string; cfg: OpenClawConfig })
   });
   if (!resolved) {
     throw new Error(`Invalid model reference: ${params.raw}`);
+  }
+  if (!isOpenRouterFreeModel(resolved.ref.provider, resolved.ref.model)) {
+    throw new Error(
+      `OpenRouter model must be free (:free): ${resolved.ref.provider}/${resolved.ref.model}`,
+    );
   }
   return resolved.ref;
 }

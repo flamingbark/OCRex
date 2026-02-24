@@ -898,7 +898,7 @@ describe("applyAuthChoice", () => {
       mode: "api_key",
     });
     expect(resolveAgentModelPrimaryValue(result.config.agents?.defaults?.model)).toBe(
-      "openrouter/auto",
+      "openrouter/meta-llama/llama-3.3-70b:free",
     );
 
     expect((await readAuthProfile("openrouter:default"))?.key).toBe("sk-openrouter-test");
