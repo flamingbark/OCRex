@@ -1,0 +1,2 @@
+- OpenClaw-only mode enabled.
+- Legacy SEAS sidecar automation removed from `.workspace-custom/seas-agent`.

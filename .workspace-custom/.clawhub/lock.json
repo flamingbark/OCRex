@@ -1,0 +1,193 @@
+{
+  "version": 1,
+  "skills": {
+    "copywriting": {
+      "version": "0.1.0",
+      "installedAt": 1771841952282
+    },
+    "writing-plans": {
+      "version": "0.1.0",
+      "installedAt": 1771841956706
+    },
+    "content-strategy": {
+      "version": "0.1.0",
+      "installedAt": 1771841958726
+    },
+    "reflection": {
+      "version": "1.0.0",
+      "installedAt": 1771841967340
+    },
+    "vercel-composition-patterns": {
+      "version": "1.0.0",
+      "installedAt": 1771841971446
+    },
+    "requesting-code-review": {
+      "version": "0.1.0",
+      "installedAt": 1771841983953
+    },
+    "frontend-design": {
+      "version": "1.0.0",
+      "installedAt": 1771841987494
+    },
+    "tailwind-design-system": {
+      "version": "1.0.0",
+      "installedAt": 1771841991975
+    },
+    "larry": {
+      "version": "1.0.0",
+      "installedAt": 1771841998359
+    },
+    "find-skills": {
+      "version": "0.1.0",
+      "installedAt": 1771842166094
+    },
+    "skill-creator": {
+      "version": "0.1.0",
+      "installedAt": 1771842056036
+    },
+    "using-superpowers": {
+      "version": "0.1.0",
+      "installedAt": 1771842061156
+    },
+    "subagent-driven-development": {
+      "version": "0.1.0",
+      "installedAt": 1771842065135
+    },
+    "brainstorming": {
+      "version": "0.1.0",
+      "installedAt": 1771842068522
+    },
+    "executing-plans": {
+      "version": "0.1.0",
+      "installedAt": 1771842071666
+    },
+    "social-content": {
+      "version": "0.1.0",
+      "installedAt": 1771842076166
+    },
+    "remotion-best-practices": {
+      "version": "1.0.0",
+      "installedAt": 1771842080990
+    },
+    "agent-browser": {
+      "version": "0.2.0",
+      "installedAt": 1771842082802
+    },
+    "browser-use": {
+      "version": "1.0.2",
+      "installedAt": 1771842084480
+    },
+    "next-best-practices": {
+      "version": "0.1.0",
+      "installedAt": 1771842089831
+    },
+    "ui-ux-pro-max": {
+      "version": "0.1.0",
+      "installedAt": 1771842240530
+    },
+    "ai-image-generation": {
+      "version": "0.1.5",
+      "installedAt": 1771842103095
+    },
+    "product-marketing-context": {
+      "version": "1.0.0",
+      "installedAt": 1771842109348
+    },
+    "markdown-to-html": {
+      "version": "1.1.0",
+      "installedAt": 1771842119965
+    },
+    "skillguard-scanner": {
+      "version": "1.1.0",
+      "installedAt": 1771842142279
+    },
+    "mcporter": {
+      "version": "1.0.0",
+      "installedAt": 1771842145659
+    },
+    "pls-agent-tools": {
+      "version": "1.0.0",
+      "installedAt": 1771842148873
+    },
+    "debug-pro": {
+      "version": "1.0.0",
+      "installedAt": 1771842152081
+    },
+    "pls-marketing-ideas": {
+      "version": "1.0.0",
+      "installedAt": 1771842155458
+    },
+    "pls-copy-editing": {
+      "version": "1.0.0",
+      "installedAt": 1771842159071
+    },
+    "frontend-design-ultimate": {
+      "version": "1.0.0",
+      "installedAt": 1771842163188
+    },
+    "sql-toolkit": {
+      "version": "1.0.0",
+      "installedAt": 1771842170067
+    },
+    "agent-browser-3": {
+      "version": "0.1.0",
+      "installedAt": 1771842173989
+    },
+    "test-runner": {
+      "version": "1.0.0",
+      "installedAt": 1771842177490
+    },
+    "superdesign": {
+      "version": "1.0.0",
+      "installedAt": 1771842180746
+    },
+    "canvas-design-2": {
+      "version": "0.1.0",
+      "installedAt": 1771842184960
+    },
+    "trmnl": {
+      "version": "1.0.3",
+      "installedAt": 1771842190065
+    },
+    "pls-audit-website": {
+      "version": "1.0.0",
+      "installedAt": 1771842199471
+    },
+    "pls-seo-audit": {
+      "version": "1.0.0",
+      "installedAt": 1771842202728
+    },
+    "marketing-mode": {
+      "version": "1.0.0",
+      "installedAt": 1771842209437
+    },
+    "afrexai-pricing-strategy": {
+      "version": "1.0.0",
+      "installedAt": 1771842212981
+    },
+    "web-deploy-github": {
+      "version": "1.0.0",
+      "installedAt": 1771842217260
+    },
+    "password-protect-pdf": {
+      "version": "1.0.0",
+      "installedAt": 1771842220861
+    },
+    "powerpoint-pptx": {
+      "version": "1.0.0",
+      "installedAt": 1771842224257
+    },
+    "word-docx": {
+      "version": "1.0.0",
+      "installedAt": 1771842227231
+    },
+    "excel-xlsx": {
+      "version": "1.0.0",
+      "installedAt": 1771842230534
+    },
+    "pls-url-to-markdown": {
+      "version": "1.0.0",
+      "installedAt": 1771842234178
+    }
+  }
+}
