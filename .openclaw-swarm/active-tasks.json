@@ -1,4 +1,9 @@
-{
-  "updatedAt": "2026-02-24T00:00:00Z",
-  "tasks": []
-}
+[
+  {
+    "id": "fix-brave-authentication",
+    "description": "Investigate and fix Brave Search API authentication issue.",
+    "branch": "fix-brave-authentication",
+    "status": "needs_attention",
+    "note": "Requested investigation into Brave API authentication issue caused by invalid token."
+  }
+]

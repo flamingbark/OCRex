@@ -735,6 +735,15 @@ async function sendSubagentAnnounceDirectly(params: {
       directOrigin?.threadId != null && directOrigin.threadId !== ""
         ? String(directOrigin.threadId)
         : undefined;
+    const directChannel =
+      typeof directOrigin?.channel === "string" ? directOrigin.channel.trim() : "";
+    // Internal channels (for example webchat) cannot be sent via gateway `send`.
+    // In those cases, inject into the requester session so connected UI clients
+    // receive the completion update through normal session streaming.
+    const shouldDeliverExternally =
+      !params.requesterIsSubagent &&
+      directChannel.length > 0 &&
+      isDeliverableMessageChannel(directChannel);
     if (params.signal?.aborted) {
       return {
         delivered: false,
@@ -746,12 +755,12 @@ async function sendSubagentAnnounceDirectly(params: {
       params: {
         sessionKey: canonicalRequesterSessionKey,
         message: params.triggerMessage,
-        deliver: !params.requesterIsSubagent,
+        deliver: shouldDeliverExternally,
         bestEffortDeliver: params.bestEffortDeliver,
-        channel: params.requesterIsSubagent ? undefined : directOrigin?.channel,
-        accountId: params.requesterIsSubagent ? undefined : directOrigin?.accountId,
-        to: params.requesterIsSubagent ? undefined : directOrigin?.to,
-        threadId: params.requesterIsSubagent ? undefined : threadId,
+        channel: shouldDeliverExternally ? directOrigin?.channel : undefined,
+        accountId: shouldDeliverExternally ? directOrigin?.accountId : undefined,
+        to: shouldDeliverExternally ? directOrigin?.to : undefined,
+        threadId: shouldDeliverExternally ? threadId : undefined,
         idempotencyKey: params.directIdempotencyKey,
       },
       expectFinal: true,
@@ -970,9 +979,9 @@ function buildAnnounceReplyInstruction(params: {
     return `Convert this completion into a concise internal orchestration update for your parent agent in your own words. Keep this internal context private (don't mention system/log/stats/session details or announce type). If this result is duplicate or no update is needed, reply ONLY: ${SILENT_REPLY_TOKEN}.`;
   }
   if (params.expectsCompletionMessage) {
-    return `A completed ${params.announceType} is ready for user delivery. Convert the result above into your normal assistant voice and send that user-facing update now. Keep this internal context private (don't mention system/log/stats/session details or announce type).`;
+    return `A completed ${params.announceType} is ready for user delivery. Convert the result above into your normal assistant voice and send that user-facing update now in this same chat turn. Keep this internal context private (don't mention system/log/stats/session details or announce type). Do NOT call the message tool unless a specific external target/channel was explicitly provided.`;
   }
-  return `A completed ${params.announceType} is ready for user delivery. Convert the result above into your normal assistant voice and send that user-facing update now. Keep this internal context private (don't mention system/log/stats/session details or announce type), and do not copy the system message verbatim. Reply ONLY: ${SILENT_REPLY_TOKEN} if this exact result was already delivered to the user in this same turn.`;
+  return `A completed ${params.announceType} is ready for user delivery. Convert the result above into your normal assistant voice and send that user-facing update now in this same chat turn. Keep this internal context private (don't mention system/log/stats/session details or announce type), and do not copy the system message verbatim. Do NOT call the message tool unless a specific external target/channel was explicitly provided. Reply ONLY: ${SILENT_REPLY_TOKEN} if this exact result was already delivered to the user in this same turn.`;
 }
 
 export async function runSubagentAnnounceFlow(params: {

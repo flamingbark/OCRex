@@ -401,6 +401,45 @@ describe("subagent announce formatting", () => {
     expect(msg).not.toContain("Convert the result above into your normal assistant voice");
   });
 
+  it("uses internal session delivery for webchat requester completion", async () => {
+    sessionStore = {
+      "agent:main:subagent:test": {
+        sessionId: "child-session-webchat",
+      },
+      "agent:main:main": {
+        sessionId: "requester-session-webchat",
+        lastChannel: "webchat",
+      },
+    };
+    chatHistoryMock.mockResolvedValueOnce({
+      messages: [{ role: "assistant", content: [{ type: "text", text: "final answer: webchat" }] }],
+    });
+    readLatestAssistantReplyMock.mockResolvedValue("");
+
+    const didAnnounce = await runSubagentAnnounceFlow({
+      childSessionKey: "agent:main:subagent:test",
+      childRunId: "run-direct-webchat",
+      requesterSessionKey: "agent:main:main",
+      requesterDisplayKey: "main",
+      requesterOrigin: {
+        channel: "webchat",
+        accountId: "acct-1",
+        to: "webchat:user-123",
+      },
+      ...defaultOutcomeAnnounce,
+      expectsCompletionMessage: true,
+    });
+
+    expect(didAnnounce).toBe(true);
+    expect(sendSpy).not.toHaveBeenCalled();
+    expect(agentSpy).toHaveBeenCalledTimes(1);
+    const call = agentSpy.mock.calls[0]?.[0] as { params?: Record<string, unknown> };
+    expect(call?.params?.sessionKey).toBe("agent:main:main");
+    expect(call?.params?.deliver).toBe(false);
+    expect(call?.params?.channel).toBeUndefined();
+    expect(call?.params?.to).toBeUndefined();
+  });
+
   it("keeps completion-mode delivery coordinated when sibling runs are still active", async () => {
     sessionStore = {
       "agent:main:subagent:test": {

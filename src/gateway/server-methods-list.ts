@@ -93,6 +93,7 @@ const BASE_METHODS = [
   "chat.history",
   "chat.abort",
   "chat.send",
+  "swarm.status",
 ];
 
 export function listGatewayMethods(): string[] {

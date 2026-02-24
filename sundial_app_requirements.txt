@@ -1,0 +1,2 @@
+Kivy==2.0.0
+Kivy-Garden-Mapview==0.1.9
