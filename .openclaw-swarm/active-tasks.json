@@ -4,5 +4,11 @@
     "description": "Investigating the environmental issues related to model selection tests.",
     "status": "done",
     "note": "Task completed, but PR not created due to errors. Need to address and create PR."
+  },
+  {
+    "id": "create-pr-for-environmental-issues",
+    "description": "Create a PR addressing the environmental issues in the repository.",
+    "branch": "environmental-issues-fix",
+    "status": "in-progress"
   }
 ]
